@@ -1,0 +1,22 @@
+PCA-MNIST transfer test; does not modify benchmark files or adapters/myteam.py
+downloading https://storage.googleapis.com/cvdf-datasets/mnist/train-images-idx3-ubyte.gz -> mnist_cache/train-images-idx3-ubyte.gz
+downloading https://storage.googleapis.com/cvdf-datasets/mnist/train-labels-idx1-ubyte.gz -> mnist_cache/train-labels-idx1-ubyte.gz
+===== PCA-MNIST SEED 42 =====
+noise 0.5: baseline 30/40=0.750 | agent 32/40=0.800 | delta +0.050
+noise 0.7: baseline 19/40=0.475 | agent 26/40=0.650 | delta +0.175
+noise 0.8: baseline 14/40=0.350 | agent 27/40=0.675 | delta +0.325
+TOTAL seed 42: baseline 63/120=0.525 | agent 85/120=0.708 | delta +0.183
+===== PCA-MNIST SEED 101 =====
+noise 0.5: baseline 24/40=0.600 | agent 36/40=0.900 | delta +0.300
+noise 0.7: baseline 20/40=0.500 | agent 27/40=0.675 | delta +0.175
+noise 0.8: baseline 16/40=0.400 | agent 26/40=0.650 | delta +0.250
+TOTAL seed 101: baseline 60/120=0.500 | agent 89/120=0.742 | delta +0.242
+===== PCA-MNIST SEED 202 =====
+noise 0.5: baseline 39/40=0.975 | agent 39/40=0.975 | delta +0.000
+noise 0.7: baseline 31/40=0.775 | agent 32/40=0.800 | delta +0.025
+noise 0.8: baseline 22/40=0.550 | agent 24/40=0.600 | delta +0.050
+TOTAL seed 202: baseline 92/120=0.767 | agent 95/120=0.792 | delta +0.025
+===== OVERALL PCA-MNIST TRANSFER =====
+baseline 215/360=0.5972
+agent    269/360=0.7472
+delta    +0.1500

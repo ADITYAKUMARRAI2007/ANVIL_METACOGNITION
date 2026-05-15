@@ -1,0 +1,86 @@
+RETRIEVAL AUDIT
+Adapter: adapters.myteam:Engine
+This directly calls model.run(q, pi, u_const=q) for every query.
+Seeds: [42, 101, 202, 303, 404]
+Noise levels: [0.5, 0.7, 0.8]
+n_per_level: 80
+
+===== SEED 42 =====
+query 0000 noise 0.5 truth 01 base_pred 01 agent_pred 01 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.262,1.429,1.000,0.303]
+query 0001 noise 0.5 truth 12 base_pred 12 agent_pred 12 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.182,1.491,1.000,0.307]
+query 0002 noise 0.5 truth 14 base_pred 14 agent_pred 14 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.170,1.392,1.000,0.284]
+noise 0.5: baseline 80/80=1.0000 | agent 80/80=1.0000 | delta +0.0000
+query 0080 noise 0.7 truth 02 base_pred 02 agent_pred 02 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.151,1.344,1.000,0.277]
+query 0081 noise 0.7 truth 02 base_pred 02 agent_pred 02 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.244,1.507,1.000,0.323]
+query 0082 noise 0.7 truth 12 base_pred 12 agent_pred 12 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.133,1.325,1.000,0.271]
+noise 0.7: baseline 75/80=0.9375 | agent 80/80=1.0000 | delta +0.0625
+query 0160 noise 0.8 truth 10 base_pred 10 agent_pred 10 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.187,1.451,1.000,0.310]
+query 0161 noise 0.8 truth 15 base_pred 15 agent_pred 15 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.241,1.473,1.000,0.314]
+query 0162 noise 0.8 truth 15 base_pred 15 agent_pred 15 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.181,1.377,1.000,0.274]
+noise 0.8: baseline 61/80=0.7625 | agent 69/80=0.8625 | delta +0.1000
+SEED 42 TOTAL: baseline 216/240=0.9000 | agent 229/240=0.9542 | delta +0.0542
+
+===== SEED 101 =====
+query 0000 noise 0.5 truth 04 base_pred 04 agent_pred 04 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.281,1.596,1.000,0.349]
+query 0001 noise 0.5 truth 15 base_pred 15 agent_pred 15 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.179,1.392,1.000,0.289]
+query 0002 noise 0.5 truth 02 base_pred 02 agent_pred 02 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.289,1.496,1.000,0.317]
+noise 0.5: baseline 76/80=0.9500 | agent 80/80=1.0000 | delta +0.0500
+query 0080 noise 0.7 truth 01 base_pred 01 agent_pred 01 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.194,1.390,1.000,0.289]
+query 0081 noise 0.7 truth 01 base_pred 01 agent_pred 01 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.113,1.386,1.000,0.276]
+query 0082 noise 0.7 truth 03 base_pred 03 agent_pred 03 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.190,1.433,1.000,0.296]
+noise 0.7: baseline 64/80=0.8000 | agent 73/80=0.9125 | delta +0.1125
+query 0160 noise 0.8 truth 10 base_pred 10 agent_pred 10 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.242,1.357,1.000,0.291]
+query 0161 noise 0.8 truth 03 base_pred 03 agent_pred 03 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.196,1.372,1.000,0.281]
+query 0162 noise 0.8 truth 06 base_pred 06 agent_pred 06 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.140,1.372,1.000,0.294]
+noise 0.8: baseline 49/80=0.6125 | agent 67/80=0.8375 | delta +0.2250
+SEED 101 TOTAL: baseline 189/240=0.7875 | agent 220/240=0.9167 | delta +0.1292
+
+===== SEED 202 =====
+query 0000 noise 0.5 truth 02 base_pred 02 agent_pred 02 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.356,1.448,1.000,0.325]
+query 0001 noise 0.5 truth 05 base_pred 05 agent_pred 05 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.208,1.499,1.000,0.318]
+query 0002 noise 0.5 truth 05 base_pred 05 agent_pred 05 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.272,1.486,1.000,0.331]
+noise 0.5: baseline 72/80=0.9000 | agent 80/80=1.0000 | delta +0.1000
+query 0080 noise 0.7 truth 14 base_pred 15 agent_pred 00 base_ok 0 agent_ok 0 pi[min,max,mean,std]=[0.255,1.526,1.000,0.330]
+query 0081 noise 0.7 truth 11 base_pred 15 agent_pred 11 base_ok 0 agent_ok 1 pi[min,max,mean,std]=[0.155,1.386,1.000,0.291]
+query 0082 noise 0.7 truth 07 base_pred 07 agent_pred 07 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.245,1.369,1.000,0.299]
+noise 0.7: baseline 64/80=0.8000 | agent 76/80=0.9500 | delta +0.1500
+query 0160 noise 0.8 truth 15 base_pred 15 agent_pred 15 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.104,1.414,1.000,0.274]
+query 0161 noise 0.8 truth 12 base_pred 15 agent_pred 12 base_ok 0 agent_ok 1 pi[min,max,mean,std]=[0.148,1.344,1.000,0.285]
+query 0162 noise 0.8 truth 09 base_pred 15 agent_pred 15 base_ok 0 agent_ok 0 pi[min,max,mean,std]=[0.100,1.326,1.000,0.227]
+noise 0.8: baseline 40/80=0.5000 | agent 63/80=0.7875 | delta +0.2875
+SEED 202 TOTAL: baseline 176/240=0.7333 | agent 219/240=0.9125 | delta +0.1792
+
+===== SEED 303 =====
+query 0000 noise 0.5 truth 06 base_pred 06 agent_pred 06 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.143,1.409,1.000,0.287]
+query 0001 noise 0.5 truth 03 base_pred 03 agent_pred 03 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.217,1.421,1.000,0.309]
+query 0002 noise 0.5 truth 08 base_pred 08 agent_pred 08 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.150,1.343,1.000,0.282]
+noise 0.5: baseline 71/80=0.8875 | agent 80/80=1.0000 | delta +0.1125
+query 0080 noise 0.7 truth 05 base_pred 05 agent_pred 05 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.182,1.391,1.000,0.296]
+query 0081 noise 0.7 truth 08 base_pred 08 agent_pred 08 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.282,1.508,1.000,0.328]
+query 0082 noise 0.7 truth 05 base_pred 05 agent_pred 05 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.220,1.407,1.000,0.291]
+noise 0.7: baseline 67/80=0.8375 | agent 75/80=0.9375 | delta +0.1000
+query 0160 noise 0.8 truth 09 base_pred 10 agent_pred 14 base_ok 0 agent_ok 0 pi[min,max,mean,std]=[0.141,1.382,1.000,0.294]
+query 0161 noise 0.8 truth 04 base_pred 04 agent_pred 04 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.134,1.404,1.000,0.287]
+query 0162 noise 0.8 truth 02 base_pred 10 agent_pred 02 base_ok 0 agent_ok 1 pi[min,max,mean,std]=[0.100,1.442,1.000,0.276]
+noise 0.8: baseline 44/80=0.5500 | agent 62/80=0.7750 | delta +0.2250
+SEED 303 TOTAL: baseline 182/240=0.7583 | agent 217/240=0.9042 | delta +0.1458
+
+===== SEED 404 =====
+query 0000 noise 0.5 truth 14 base_pred 14 agent_pred 14 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.230,1.430,1.000,0.303]
+query 0001 noise 0.5 truth 04 base_pred 05 agent_pred 04 base_ok 0 agent_ok 1 pi[min,max,mean,std]=[0.251,1.457,1.000,0.322]
+query 0002 noise 0.5 truth 14 base_pred 14 agent_pred 14 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.297,1.475,1.000,0.322]
+noise 0.5: baseline 67/80=0.8375 | agent 79/80=0.9875 | delta +0.1500
+query 0080 noise 0.7 truth 05 base_pred 05 agent_pred 05 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.213,1.329,1.000,0.283]
+query 0081 noise 0.7 truth 01 base_pred 05 agent_pred 01 base_ok 0 agent_ok 1 pi[min,max,mean,std]=[0.206,1.381,1.000,0.292]
+query 0082 noise 0.7 truth 03 base_pred 05 agent_pred 05 base_ok 0 agent_ok 0 pi[min,max,mean,std]=[0.285,1.544,1.000,0.340]
+noise 0.7: baseline 62/80=0.7750 | agent 75/80=0.9375 | delta +0.1625
+query 0160 noise 0.8 truth 12 base_pred 05 agent_pred 12 base_ok 0 agent_ok 1 pi[min,max,mean,std]=[0.185,1.500,1.000,0.317]
+query 0161 noise 0.8 truth 00 base_pred 03 agent_pred 03 base_ok 0 agent_ok 0 pi[min,max,mean,std]=[0.114,1.348,1.000,0.277]
+query 0162 noise 0.8 truth 00 base_pred 00 agent_pred 00 base_ok 1 agent_ok 1 pi[min,max,mean,std]=[0.100,1.260,1.000,0.238]
+noise 0.8: baseline 46/80=0.5750 | agent 59/80=0.7375 | delta +0.1625
+SEED 404 TOTAL: baseline 175/240=0.7292 | agent 213/240=0.8875 | delta +0.1583
+
+===== OVERALL =====
+baseline 938/1200=0.7817
+agent    1098/1200=0.9150
+delta    +0.1333
