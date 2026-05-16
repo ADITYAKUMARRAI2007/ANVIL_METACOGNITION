@@ -45,7 +45,7 @@ run() {
   echo "mode: $MODE"
   echo "folder: $ROOT"
   echo "python: $PY"
-  echo "adapter: adapters.myteam:Engine"
+  echo "adapter: adapters.theVisioneers:Engine"
   echo "log: $LOG"
   date
 
@@ -63,7 +63,7 @@ run() {
   echo "2 / 5 · CODE QUALITY GATE"
   echo "======================================================================"
   run "$PY" -m py_compile \
-    adapter.py adapters/myteam.py adapters/dummy.py adapters/variance.py \
+    adapter.py adapters/theVisioneers.py adapters/dummy.py adapters/variance.py \
     adapters/class_conditional.py data.py harness.py metrics.py \
     pcam_model.py run.py self_check.py
   run "$PY" -m json.tool reports.json >/dev/null
@@ -73,14 +73,14 @@ run() {
   echo "======================================================================"
   echo "3 / 5 · OFFICIAL QUICK SELF-CHECK"
   echo "======================================================================"
-  run "$PY" self_check.py --adapter adapters.myteam:Engine --quick
+  run "$PY" self_check.py --adapter adapters.theVisioneers:Engine --quick
 
   echo
   echo "======================================================================"
   echo "4 / 5 · OFFICIAL 7-SEED REPORT"
   echo "======================================================================"
   if [[ "$MODE" == "--full" ]]; then
-    run "$PY" run.py --adapter adapters.myteam:Engine \
+    run "$PY" run.py --adapter adapters.theVisioneers:Engine \
       --seeds 7 13 31 97 211 503 1009 --out report.json
   else
     echo "video mode: not rerunning the long 7-seed benchmark."

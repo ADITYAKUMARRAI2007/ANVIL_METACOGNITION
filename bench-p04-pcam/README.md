@@ -1,6 +1,6 @@
 # P-04 · PCAM Precision Agent Submission
 
-Team adapter: `adapters/myteam.py`
+Team adapter: `adapters/theVisioneers.py`
 Class: `Engine`
 Dependencies: NumPy only, as required by `requirements.txt`.
 
@@ -39,13 +39,13 @@ python self_check.py --adapter adapters.dummy:DummyAgent --quick
 Quick check:
 
 ```bash
-python self_check.py --adapter adapters.myteam:Engine --quick
+python self_check.py --adapter adapters.theVisioneers:Engine --quick
 ```
 
 Full evaluation with the public multi-seed command:
 
 ```bash
-python run.py --adapter adapters.myteam:Engine \
+python run.py --adapter adapters.theVisioneers:Engine \
   --seeds 7 13 31 97 211 503 1009 --out report.json
 ```
 

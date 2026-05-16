@@ -33,8 +33,8 @@ section() {
 {
 section "ANVIL P-04 · PCAM PRECISION AGENT · VIDEO SHOWCASE"
 echo "Folder: $ROOT"
-echo "Adapter: adapters.myteam:Engine"
-echo "Agent file: adapters/myteam.py"
+echo "Adapter: adapters.theVisioneers:Engine"
+echo "Agent file: adapters/theVisioneers.py"
 echo "Official report: report.json"
 echo "Evidence report: reports.json"
 echo "This script shows cached/validated logs so the video stays under 5 minutes."
@@ -50,8 +50,8 @@ find . -maxdepth 2 -type f \
 pause
 
 section "2 / 7 · CODE QUALITY / REPRODUCIBILITY CHECK"
-echo "+ $PY -m py_compile adapter.py adapters/myteam.py data.py harness.py metrics.py pcam_model.py run.py self_check.py"
-$PY -m py_compile adapter.py adapters/myteam.py data.py harness.py metrics.py pcam_model.py run.py self_check.py
+echo "+ $PY -m py_compile adapter.py adapters/theVisioneers.py data.py harness.py metrics.py pcam_model.py run.py self_check.py"
+$PY -m py_compile adapter.py adapters/theVisioneers.py data.py harness.py metrics.py pcam_model.py run.py self_check.py
 echo "+ $PY -m json.tool report.json reports.json"
 $PY -m json.tool report.json >/dev/null
 $PY -m json.tool reports.json >/dev/null
@@ -81,7 +81,7 @@ $PY - <<'PY'
 import json
 r=json.load(open('report.json'))
 print('Command used:')
-print('python run.py --adapter adapters.myteam:Engine --seeds 7 13 31 97 211 503 1009 --out report.json')
+print('python run.py --adapter adapters.theVisioneers:Engine --seeds 7 13 31 97 211 503 1009 --out report.json')
 print()
 print('Seeds:', r['config']['seeds'])
 agg=r['aggregated']; score=r['score']
@@ -107,7 +107,7 @@ $PY - <<'PY'
 import json
 r=json.load(open('reports.json'))
 q=r['official_p04']['quick_self_check']
-print('Command: python self_check.py --adapter adapters.myteam:Engine --quick')
+print('Command: python self_check.py --adapter adapters.theVisioneers:Engine --quick')
 print(f"Mean Δ accuracy:       {q['mean_delta']:+.3f}")
 print(f"Worst-seed Δ accuracy: {q['min_delta']:+.3f}")
 print(f"Mean spread reduction: {q['mean_spread_reduction']:.2f}x")
@@ -153,13 +153,13 @@ pause
 section "DONE · WHAT TO SUBMIT"
 cat <<'TEXT'
 Required submission files:
-- adapters/myteam.py      # Engine implementation
+- adapters/theVisioneers.py      # Engine implementation
 - README.md               # approach + setup + dependencies
 - report.json             # official 7-seed run output
 - reports.json            # extra evidence / transfer / stress summaries
 
 Run command for judges:
-python run.py --adapter adapters.myteam:Engine --seeds 7 13 31 97 211 503 1009 --out report.json
+python run.py --adapter adapters.theVisioneers:Engine --seeds 7 13 31 97 211 503 1009 --out report.json
 TEXT
 
 echo "Showcase complete. Saved terminal log: $LOG"

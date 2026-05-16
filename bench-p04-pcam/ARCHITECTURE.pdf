@@ -9,7 +9,7 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 4 0 obj
-<< /Length 1796 >>
+<< /Length 1803 >>
 stream
 BT
 /F1 10.5 Tf
@@ -18,7 +18,7 @@ BT
 0 -14 Td
 () Tj
 0 -14 Td
-(Submission component: adapters/myteam.py, class Engine.) Tj
+(Submission component: adapters/theVisioneers.py, class Engine.) Tj
 0 -14 Td
 () Tj
 0 -14 Td
@@ -149,7 +149,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 6 0 R >>
 endobj
 8 0 obj
-<< /Length 1644 >>
+<< /Length 1665 >>
 stream
 BT
 /F1 10.5 Tf
@@ -164,11 +164,11 @@ BT
 0 -14 Td
 () Tj
 0 -14 Td
-(python self_check.py --adapter adapters.myteam:Engine --quick) Tj
+(python self_check.py --adapter adapters.theVisioneers:Engine --quick) Tj
 0 -14 Td
-(python run.py --adapter adapters.myteam:Engine --seeds 7 13 31 97 211 503 1009 --out) Tj
+(python run.py --adapter adapters.theVisioneers:Engine --seeds 7 13 31 97 211 503 1009) Tj
 0 -14 Td
-(report.json) Tj
+(--out report.json) Tj
 0 -14 Td
 () Tj
 0 -14 Td
@@ -210,7 +210,7 @@ BT
 0 -14 Td
 (Code quality) Tj
 0 -14 Td
-(The implementation is contained in adapters/myteam.py. It uses only NumPy and the) Tj
+(The implementation is contained in adapters/theVisioneers.py. It uses only NumPy and the) Tj
 0 -14 Td
 (provided benchmark files. The README documents setup, approach, commands, dependencies,) Tj
 0 -14 Td
@@ -238,13 +238,13 @@ xref
 0000000058 00000 n 
 0000000127 00000 n 
 0000000197 00000 n 
-0000002045 00000 n 
-0000002171 00000 n 
-0000004144 00000 n 
-0000004270 00000 n 
-0000005966 00000 n 
+0000002052 00000 n 
+0000002178 00000 n 
+0000004151 00000 n 
+0000004277 00000 n 
+0000005994 00000 n 
 trailer
 << /Size 10 /Root 1 0 R >>
 startxref
-6092
+6120
 %%EOF

@@ -119,7 +119,7 @@ run_demo() {
   clear
   section "ANVIL P-04 · PCAM PRECISION AGENT · RECORDED TERMINAL SHOWCASE"
   echo "Folder: $ROOT"
-  echo "Adapter: adapters.myteam:Engine"
+  echo "Adapter: adapters.theVisioneers:Engine"
   echo "Official output: report.json"
   echo "Evidence output: reports.json"
   echo "Terminal log: $TERM_LOG"
@@ -140,7 +140,7 @@ run_demo() {
   sleep "$PAUSE"
 
   section "2 / 8 · SHOW SUBMISSION AGENT FILE"
-  cmd "sed -n '1,220p' adapters/myteam.py"
+  cmd "sed -n '1,220p' adapters/theVisioneers.py"
   sleep "$PAUSE"
 
   section "3 / 8 · SHOW README SETUP AND RUN COMMANDS"
@@ -148,12 +148,12 @@ run_demo() {
   sleep "$PAUSE"
 
   section "4 / 8 · CODE QUALITY CHECK"
-  cmd "$PY -m py_compile adapter.py adapters/myteam.py data.py harness.py metrics.py pcam_model.py run.py self_check.py"
+  cmd "$PY -m py_compile adapter.py adapters/theVisioneers.py data.py harness.py metrics.py pcam_model.py run.py self_check.py"
   cmd "$PY -m json.tool report.json >/dev/null && $PY -m json.tool reports.json >/dev/null && echo 'JSON reports valid'"
   sleep "$PAUSE"
 
   section "5 / 8 · OFFICIAL 7-SEED RESULT FROM report.json"
-  slow_print "$ python run.py --adapter adapters.myteam:Engine --seeds 7 13 31 97 211 503 1009 --out report.json"
+  slow_print "$ python run.py --adapter adapters.theVisioneers:Engine --seeds 7 13 31 97 211 503 1009 --out report.json"
   echo "(Already generated; showing cached official result to keep video short.)"
   "$PY" - <<'PY'
 import json
@@ -174,7 +174,7 @@ PY
   sleep "$PAUSE"
 
   section "6 / 8 · QUICK LIVE SELF-CHECK"
-  cmd "$PY self_check.py --adapter adapters.myteam:Engine --quick"
+  cmd "$PY self_check.py --adapter adapters.theVisioneers:Engine --quick"
   sleep "$PAUSE"
 
   section "7 / 8 · TRANSFER DATASETS FROM reports.json"
@@ -208,13 +208,13 @@ print(f"min_seedkind_delta={anti['min_seedkind_delta']:+.3f}")
 PY
   echo
   echo "Submit these key files:"
-  echo "  adapters/myteam.py"
+  echo "  adapters/theVisioneers.py"
   echo "  README.md"
   echo "  report.json"
   echo "  reports.json"
   echo
   echo "Judges can run:"
-  echo "  python run.py --adapter adapters.myteam:Engine --seeds 7 13 31 97 211 503 1009 --out report.json"
+  echo "  python run.py --adapter adapters.theVisioneers:Engine --seeds 7 13 31 97 211 503 1009 --out report.json"
   sleep 1
 
   section "DONE"
