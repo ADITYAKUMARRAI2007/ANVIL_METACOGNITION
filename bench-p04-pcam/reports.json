@@ -1,0 +1,189 @@
+{
+    "problem": "P-04 \u00b7 Precision-Controlled Associative Memory",
+    "adapter": "adapters.myteam:Engine",
+    "submission_file": "adapters/myteam.py",
+    "summary": {
+        "recommendation": "Use adapters.myteam:Engine for submission.",
+        "strength": "Strong retrieval improvements across official, transfer, and stress tests.",
+        "known_limitation": "Anisotropy improvement is positive but small; official anisotropy score is low."
+    },
+    "code_quality": {
+        "compile_check": "pass",
+        "command": "python -m py_compile adapter.py adapters/myteam.py data.py harness.py metrics.py pcam_model.py run.py self_check.py pca_mnist_transfer_test.py m2nist_transfer_test.py",
+        "diff_check": "pass"
+    },
+    "official_p04": {
+        "quick_self_check": {
+            "retrieval_points": 70.0,
+            "anisotropy_points": 3.05,
+            "total_automated": 73.05,
+            "max_automated": 90.0,
+            "mean_delta": 0.129,
+            "min_delta": 0.108,
+            "mean_spread_reduction": 1.28
+        },
+        "full_self_check": {
+            "retrieval_points": 70.0,
+            "anisotropy_points": 3.24,
+            "total_automated": 73.24,
+            "max_automated": 90.0,
+            "mean_delta": 0.263,
+            "min_delta": 0.095,
+            "mean_spread_reduction": 1.3,
+            "per_seed": [
+                {
+                    "seed": 42,
+                    "direct": 0.828,
+                    "baseline": 0.771,
+                    "agent": 0.865,
+                    "delta": 0.095,
+                    "spread_reduction": 1.27
+                },
+                {
+                    "seed": 101,
+                    "direct": 0.813,
+                    "baseline": 0.703,
+                    "agent": 0.832,
+                    "delta": 0.129,
+                    "spread_reduction": 1.28
+                },
+                {
+                    "seed": 202,
+                    "direct": 0.795,
+                    "baseline": 0.325,
+                    "agent": 0.819,
+                    "delta": 0.493,
+                    "spread_reduction": 1.29
+                },
+                {
+                    "seed": 303,
+                    "direct": 0.82,
+                    "baseline": 0.547,
+                    "agent": 0.841,
+                    "delta": 0.295,
+                    "spread_reduction": 1.36
+                },
+                {
+                    "seed": 404,
+                    "direct": 0.808,
+                    "baseline": 0.484,
+                    "agent": 0.785,
+                    "delta": 0.301,
+                    "spread_reduction": 1.28
+                }
+            ]
+        }
+    },
+    "transfer_tests": {
+        "pca_mnist": {
+            "baseline": "215/360",
+            "baseline_acc": 0.5972,
+            "agent": "269/360",
+            "agent_acc": 0.7472,
+            "delta": 0.15
+        },
+        "m2nist": {
+            "baseline": "242/360",
+            "baseline_acc": 0.6722,
+            "agent": "294/360",
+            "agent_acc": 0.8167,
+            "delta": 0.1444
+        },
+        "fashion_mnist": {
+            "baseline": "133/600",
+            "baseline_acc": 0.2217,
+            "agent": "184/600",
+            "agent_acc": 0.3067,
+            "delta": 0.085
+        },
+        "svhn_pca64": {
+            "baseline": "97/600",
+            "baseline_acc": 0.1617,
+            "agent": "129/600",
+            "agent_acc": 0.215,
+            "delta": 0.0533
+        }
+    },
+    "stress_tests": {
+        "current_agent": {
+            "anchor_public_shape": {
+                "mean_delta": 0.235,
+                "min_delta": 0.076,
+                "spread_reduction": 1.29,
+                "score": 73.13
+            },
+            "unseen_seeds": {
+                "mean_delta": 0.248,
+                "min_delta": 0.19,
+                "spread_reduction": 1.31,
+                "score": 73.38
+            },
+            "shifted_noise_wide": {
+                "mean_delta": 0.152,
+                "min_delta": 0.029,
+                "spread_reduction": 1.36,
+                "score": 73.78
+            },
+            "larger_K24": {
+                "mean_delta": 0.472,
+                "min_delta": 0.433,
+                "spread_reduction": 1.24,
+                "score": 72.67
+            },
+            "larger_N96": {
+                "mean_delta": 0.167,
+                "min_delta": 0.133,
+                "spread_reduction": 1.2,
+                "score": 72.22
+            },
+            "summary": {
+                "worst_min_delta": 0.0286,
+                "mean_min_delta": 0.1724,
+                "mean_total_score": 73.04,
+                "mean_reduction": 1.28
+            }
+        },
+        "anti_benchmark_corruptions_current": {
+            "overall_baseline_acc": 0.707,
+            "overall_agent_acc": 0.82,
+            "overall_delta": 0.114,
+            "min_seedkind_delta": -0.037,
+            "by_corruption": {
+                "public_like_continuous": {
+                    "baseline": 0.675,
+                    "agent": 0.897,
+                    "delta": 0.222
+                },
+                "block_occlusion": {
+                    "baseline": 0.818,
+                    "agent": 0.917,
+                    "delta": 0.1
+                },
+                "gaussian_only": {
+                    "baseline": 0.818,
+                    "agent": 0.925,
+                    "delta": 0.108
+                },
+                "feature_scaling": {
+                    "baseline": 0.85,
+                    "agent": 0.945,
+                    "delta": 0.095
+                },
+                "sign_flip": {
+                    "baseline": 0.677,
+                    "agent": 0.785,
+                    "delta": 0.108
+                },
+                "nearest_mixup": {
+                    "baseline": 0.403,
+                    "agent": 0.453,
+                    "delta": 0.05
+                }
+            }
+        }
+    },
+    "cleanup": {
+        "archive_path": "/Users/adityakumarrai/.openclaw/workspace/p04_submission_archive_20260516_082924",
+        "note": "Scratch candidate agents, temporary scripts, external dataset caches, and generated logs were moved out of the submission folder."
+    }
+}

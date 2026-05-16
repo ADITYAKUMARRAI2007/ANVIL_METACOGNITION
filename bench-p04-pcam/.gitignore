@@ -3,3 +3,10 @@ m2nist_cache/
 audit_logs/
 mnist_cache/
 m2nist_cache/
+
+# Local demo artifacts
+logs/
+videos/
+__pycache__/
+adapters/__pycache__/
+.DS_Store

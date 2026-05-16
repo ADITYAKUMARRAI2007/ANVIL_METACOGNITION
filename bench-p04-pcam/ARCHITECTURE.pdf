@@ -1,0 +1,250 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 1796 >>
+stream
+BT
+/F1 10.5 Tf
+54 738 Td
+(ANVIL P-04 PCAM PRECISION AGENT - ARCHITECTURE) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Submission component: adapters/myteam.py, class Engine.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Problem setting) Tj
+0 -14 Td
+(The PCAM model is frozen. The submission is not allowed to retrain or modify the base) Tj
+0 -14 Td
+(memory dynamics. For every corrupted query q, the agent returns a positive diagonal) Tj
+0 -14 Td
+(precision vector pi. The benchmark then clips and mean-normalizes pi before running the) Tj
+0 -14 Td
+(PCAM dynamics. Retrieval is scored by improvement over the identity-precision baseline,) Tj
+0 -14 Td
+(and anisotropy is scored by spread reduction in the local Hessian geometry.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(High-level design) Tj
+0 -14 Td
+(The submitted agent is a gated precision controller with two complementary branches:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(1. Retrieval branch for corrupted or ambiguous queries.) Tj
+0 -14 Td
+(2. Geometry branch for clean, high-confidence attractor-like queries.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(The key idea is to use precision meaningfully without changing the PCAM model. Corrupted) Tj
+0 -14 Td
+(inputs should not trust every PCA dimension equally. Clean inputs, however, can use) Tj
+0 -14 Td
+(local Hessian information to modestly improve conditioning around the attractor.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Data flow) Tj
+0 -14 Td
+(stored_patterns X + model_params -> Engine initialization) Tj
+0 -14 Td
+(corrupted_query q -> similarity/margin analysis -> retrieval precision or geometry) Tj
+0 -14 Td
+(precision -> pi vector -> PCAM harness dynamics -> nearest-pattern retrieval) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(The code is deterministic, NumPy-only, CPU-only, and does not contain seed-specific) Tj
+0 -14 Td
+(lookup tables or external trained weights.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 1921 >>
+stream
+BT
+/F1 10.5 Tf
+54 738 Td
+(PAGE 2 - AGENT INTERNALS) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Initialization) Tj
+0 -14 Td
+(The Engine receives stored_patterns with shape \(K, N\) and model_params containing R,) Tj
+0 -14 Td
+(eta, beta, integration parameters, and precision bounds. It stores X, constructs a) Tj
+0 -14 Td
+(frozen PCAMModel helper using the provided parameters, and precomputes one geometry) Tj
+0 -14 Td
+(template per stored pattern.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Retrieval branch) Tj
+0 -14 Td
+(For a query q, the agent normalizes q and computes cosine similarities X @ q. The best) Tj
+0 -14 Td
+(match, confidence, and margin to the runner-up are used to estimate how reliable the) Tj
+0 -14 Td
+(query is. The retrieval precision uses an adaptive inverse-|q| rule:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(- low confidence -> stronger precision shaping) Tj
+0 -14 Td
+(- high confidence -> softer precision shaping) Tj
+0 -14 Td
+(- output is clipped/normalized internally before the harness applies its own projection) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(This branch is responsible for the strong retrieval delta across public and shifted) Tj
+0 -14 Td
+(seeds.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Geometry branch) Tj
+0 -14 Td
+(For each stored pattern, the agent finds the true PCAM equilibrium using) Tj
+0 -14 Td
+(model.find_equilibrium\(pattern\), computes the Hessian at that equilibrium, and optimizes) Tj
+0 -14 Td
+(a diagonal preconditioner to reduce the condition spread of sqrt\(pi\) H sqrt\(pi\). This) Tj
+0 -14 Td
+(follows the PCAM paper's local-geometry motivation while respecting the benchmark's) Tj
+0 -14 Td
+(diagonal-positive precision constraint.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Gating rule) Tj
+0 -14 Td
+(The agent uses geometry directly only when the query is high-confidence and separated) Tj
+0 -14 Td
+(from the runner-up. Borderline inputs blend gently. Ambiguous inputs stay retrieval-) Tj
+0 -14 Td
+(first to avoid hurting accuracy.) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 1644 >>
+stream
+BT
+/F1 10.5 Tf
+54 738 Td
+(PAGE 3 - RESULTS, REPRODUCIBILITY, AND LIMITATIONS) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(How to run) Tj
+0 -14 Td
+(From bench-p04-pcam:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(python self_check.py --adapter adapters.myteam:Engine --quick) Tj
+0 -14 Td
+(python run.py --adapter adapters.myteam:Engine --seeds 7 13 31 97 211 503 1009 --out) Tj
+0 -14 Td
+(report.json) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Official generated report) Tj
+0 -14 Td
+(The required 7-seed command produced report.json with:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(mean delta accuracy: +0.1935) Tj
+0 -14 Td
+(worst-seed delta accuracy: +0.1107) Tj
+0 -14 Td
+(mean spread reduction: 1.29x) Tj
+0 -14 Td
+(retrieval score: 70.00 / 70) Tj
+0 -14 Td
+(anisotropy score: 3.21 / 20) Tj
+0 -14 Td
+(total automated score: 73.21 / 90) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Transfer evidence) Tj
+0 -14 Td
+(Additional summaries are stored in reports.json:) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(PCA-MNIST delta: +0.1500) Tj
+0 -14 Td
+(M2NIST delta: +0.1444) Tj
+0 -14 Td
+(Fashion-MNIST delta: +0.0850) Tj
+0 -14 Td
+(SVHN PCA-64 delta: +0.0533) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Code quality) Tj
+0 -14 Td
+(The implementation is contained in adapters/myteam.py. It uses only NumPy and the) Tj
+0 -14 Td
+(provided benchmark files. The README documents setup, approach, commands, dependencies,) Tj
+0 -14 Td
+(and verified results. py_compile and JSON validation pass.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Known limitation) Tj
+0 -14 Td
+(The retrieval branch is strong. The anisotropy branch improves spread only modestly,) Tj
+0 -14 Td
+(around 1.3x, so it receives limited anisotropy credit. This is documented rather than) Tj
+0 -14 Td
+(hidden.) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 8 0 R >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000127 00000 n 
+0000000197 00000 n 
+0000002045 00000 n 
+0000002171 00000 n 
+0000004144 00000 n 
+0000004270 00000 n 
+0000005966 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+6092
+%%EOF

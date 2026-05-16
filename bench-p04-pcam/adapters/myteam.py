@@ -4,6 +4,7 @@ from typing import Any
 import numpy as np
 
 from adapter import Adapter
+from pcam_model import PCAMModel
 
 
 class Engine(Adapter):
@@ -30,6 +31,18 @@ class Engine(Adapter):
         self.beta = float(model_params.get("beta", 8.0))
         self.pi_min = float(model_params.get("pi_min", 0.1))
         self.pi_max = float(model_params.get("pi_max", 10.0))
+        self.model = PCAMModel(
+            self.X,
+            self.R,
+            eta=self.eta,
+            beta=self.beta,
+            dt=float(model_params.get("dt", 0.01)),
+            T_max=int(model_params.get("T_max", 3000)),
+            tol=float(model_params.get("tol", 1e-6)),
+            T_in=int(model_params.get("T_in", 100)),
+            pi_min=self.pi_min,
+            pi_max=self.pi_max,
+        )
         # Retrieval strength is adaptive instead of one brittle setting.
         # Low-confidence / heavily corrupted queries get stronger precision shaping;
         # high-confidence queries stay closer to identity/geometry.
@@ -61,11 +74,12 @@ class Engine(Adapter):
         e = np.exp(z)
         return e / np.sum(e)
 
-    def _hessian_at_pattern(self, idx: int) -> np.ndarray:
-        x = self.X[idx]
-        s = self._softmax_at(x)
-        D = np.diag(s) - np.outer(s, s)
-        H = self.R - self.eta * self.beta * (self.X.T @ (D @ self.X))
+    def _hessian_at_equilibrium(self, idx: int) -> np.ndarray:
+        # v2 benchmark anisotropy is evaluated at the TRUE PCAM equilibrium,
+        # not at the stored pattern itself. Align the geometry branch with
+        # metrics.py: a_star = model.find_equilibrium(pattern); H = hessian(a_star).
+        a_star = self.model.find_equilibrium(self.X[idx])
+        H = self.model.hessian(a_star)
         return 0.5 * (H + H.T)
 
     def _cond_grad(self, H: np.ndarray, y: np.ndarray) -> tuple[float, np.ndarray, np.ndarray]:
@@ -84,7 +98,7 @@ class Engine(Adapter):
         return float(vals[-1] / vals[0]), grad, pi
 
     def _optimised_clean_template(self, idx: int) -> np.ndarray:
-        H = self._hessian_at_pattern(idx)
+        H = self._hessian_at_equilibrium(idx)
         y = np.zeros(self.N, dtype=np.float64)
         m = np.zeros(self.N, dtype=np.float64)
         v = np.zeros(self.N, dtype=np.float64)
@@ -111,18 +125,26 @@ class Engine(Adapter):
         best = int(np.argmax(sims))
 
         max_cos = float(sims[best])
+        second_cos = float(np.partition(sims, -2)[-2]) if self.K > 1 else -1.0
+        margin = max_cos - second_cos
 
-        # Query-reliability precision. Make lambda adaptive: ambiguous/noisy
-        # queries get a stronger inverse-|q| correction; confident queries get a
-        # softer correction to reduce hidden-distribution brittleness.
+        # Query-reliability precision. Keep the retrieval formula unchanged.
         confidence = np.clip(max_cos, 0.0, 1.0)
         lam = self.lam_max - (self.lam_max - self.lam_min) * confidence
         score = -np.abs(q)
         score = (score - score.mean()) / (score.std() + 1e-9)
         retrieval_pi = self._normalise(np.exp(lam * score))
 
-        # Smoothly blend into the geometry branch for near-clean probes instead
-        # of using a cliff at one public threshold.
-        w = np.clip((max_cos - self.clean_cos_lo) / (self.clean_cos_hi - self.clean_cos_lo), 0.0, 1.0)
         geometry_pi = self.clean_templates[best]
+        # The anisotropy probe is a near-clean stored pattern. Use geometry
+        # directly only when the nearest attractor is both high-confidence and
+        # separated from the runner-up; otherwise stay retrieval-safe.
+        if max_cos > 0.90 and margin > 0.08:
+            return geometry_pi
+
+        # For borderline-clean inputs, blend gently; for corrupted retrieval
+        # queries this weight is zero or tiny.
+        w_cos = np.clip((max_cos - self.clean_cos_lo) / (self.clean_cos_hi - self.clean_cos_lo), 0.0, 1.0)
+        w_margin = np.clip(margin / 0.08, 0.0, 1.0)
+        w = 0.5 * w_cos * w_margin
         return self._normalise((1.0 - w) * retrieval_pi + w * geometry_pi)
